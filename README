@@ -1,7 +1,21 @@
-## 3dwebphysics - Three Dimensional Physics into the world of web
+# CSSLint
 
-Impressed by the [Intro to CSS 3D transforms](http://desandro.github.com/3dtransforms/)
-article by [David DeSandro](http://desandro.com/), this project kicked-off to 
-bring a generic solution for leveraging 3D Physics into web pages seamlessly.
+CSSLint is a tool to help point out problems with your CSS code. It does basic syntax checking as well as applying a set of rules to the code that look for problematic patterns or signs of inefficiency. The rules are all pluggable, so you can easily write your own or omit ones you don't want.
 
-The first to this addition is a picture carousal.
+# Contributors
+
+## Creators
+
+1. Nicole Sullivan, http://www.stubbornella.org
+1. Nicholas C. Zakas, http://www.nczonline.net
+
+## Contributors
+
+1. Samori Gorse, https://twitter.com/shinuza (Rules, Non-zero Exit Code for CLI)
+1. Eitan Konigsburg, https://twitter.com/eitanmk (Rhino CLI)
+1. Ben Barber (Compatible Vendor Prefix Rule)
+1. Eric Wendelin, http://eriwen.com (Output formatters)
+1. Kasper Garnaes, http://reload.dk (Checkstyle XML format)
+1. Gord Tanner, http://www.tinyhippos.com (CLI quiet option)
+1. Hans-Peter Buniat, https://github.com/hpbuniat (Duplicate background image rule)
+1. Dino Chiesa, https://github.com/DinoChiesa (Windows Script Host CLI)

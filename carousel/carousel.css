@@ -1,5 +1,4 @@
 body {
-	width: 990px;
 	margin: 0 auto;
 }
 header, footer {
@@ -7,27 +6,38 @@ header, footer {
 	text-align: center;
 }
 header {
-	margin: 40px 0 30px;
-	color: gray;
+	margin: 0 0 30px;
+	padding: 10px 0;
+	color: black;
+	background-color: #9DC4DB;
+	font: italic 34px Sans MS;
 }
 h1 {
 	font-size: 58px;
-	margin-bottom: 10px;
+	margin: 0;
 }
-header div{
-	font-size: 28px;
+.subtitle{	
+	font-style: normal;
+ 	-moz-perspective: 500px;
+  	-webkit-perspective: 500px;
+  	-ms-perspective: 500px;
+  	-o-perspective: 500px;
+  	perspective: 500px;	
+  	-webkit-transform: rotateX(-40deg) translateZ(0px);
+  	-moz-transform: rotateX(-40deg) translateZ(0px);
+  	-o-transform: rotateX(-40deg) translateZ(0px);
+  	-ms-transform: rotateX(-40deg) translateZ(0px);
+  	transform: rotateX(-40deg) translateZ(0px);
 }
 .threeD {
 	display: inline-block;
 	font-weight: bold;
-  	-moz-perspective: 500px;
-  	-webkit-perspective: 500px;
-  	-ms-perspective: 500px;
-  	-o-perspective: 500px;
-  	perspective: 500px;
-  	
-  	-webkit-transform: rotateY(40deg) translateZ(20px);
-  	
+	font-size: 38px;  	
+  	-webkit-transform: rotateX(19deg) rotateY(54deg) translateZ(0px);
+  	-moz-transform: rotateX(19deg) rotateY(54deg) translateZ(0px);
+  	-o-transform: rotateX(19deg) rotateY(54deg) translateZ(0px);
+  	-ms-transform: rotateX(19deg) rotateY(54deg) translateZ(0px);
+  	transform: rotateX(19deg) rotateY(54deg) translateZ(0px);
   	-moz-transform-style: preserve-3d;
 	-o-transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;

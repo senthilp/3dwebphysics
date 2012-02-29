@@ -28,7 +28,7 @@
 <body>
 	<header>
 		<h1>Garage 360</h1>
-		<div>A <span class="threeD">3D</span> Experience</div>
+		<div class="subtitle">A <span class="threeD">3D</span> Experience</div>
 	</header>
 	<div class="content">
 		<?php 

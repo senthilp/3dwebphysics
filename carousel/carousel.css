@@ -62,7 +62,12 @@ h1 {
 	-o-transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 	-ms-transform-style: preserve-3d;
-	transform-style: preserve-3d;
+	transform-style: preserve-3d;	
+	-moz-transition: -moz-transform 1s;
+	-o-transition: -o-transform 1s;
+	-webkit-transition: -webkit-transform 1s;
+	-ms-transition: -ms-transform 1s;
+	transition: transform 1s; 
 }
 #carousel figure {
 	display: block;

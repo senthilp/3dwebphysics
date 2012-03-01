@@ -49,13 +49,13 @@
 			$panelStyleCommon[] = 'top:'.round($offset/2).'px;';
 			$panelStyleCommon[] = 'left:'.round($offset/2).'px;';
 		?>	
-		<section class="container" style="height:<?php echo $height + $offset?>px; width: <?php echo $width + $offset?>px;">
-			<div id="carousel" style="<?php echo getPrefixedStyle('transform', 'translateZ(-'.$translateZ.'px)');?>">
+		<section class="container" style="height:<?php echo $height + $offset?>px; width: <?php echo $width + $offset?>px;">			
+			<div id="carousel" style="<?php echo getPrefixedStyle('transform', 'translateZ(-'.$translateZ.'px) rotateY(0deg)');?>">
 				<?php 						
 					$figureMarkup = array();
 					for($i = 0; $i < $panelCount; $i++) {
 						$panelStyle = $panelStyleCommon;
-						if($i != 0) {
+						if($i) {
 							$panelStyle[] = 'opacity: 0.9;';
 						}
 						$panelStyle[] = 'background: url(\''.$picURLs[$i].'\') no-repeat 50% 50%;';
@@ -69,10 +69,19 @@
 	</div>
 	<footer>	
 	</footer>	
-	<script src="carousel.js"></script>		
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://www.modernizr.com/downloads/modernizr.js"></script>
 	<script>
-
+		$.threeDConfig = {
+			panelCount : <?php echo $panelCount;?>,
+			nodes: {
+					carouselId: 'carousel'
+					},
+			rotateX: <?php echo $rotateY;?>,
+			translateZ: <?php echo $translateZ;?>
+		};
 	</script>
+	<script src="carousel.js"></script>
 </body>
 </html>
 <?php 

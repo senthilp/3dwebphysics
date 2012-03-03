@@ -1,5 +1,6 @@
 <?php
 	$picConfig = '{
+				    "name": "2010 Bugatti Veyron",
 					"urls": ["http://i.ebayimg.com/00/s/NjAwWDgwMA==/$%28KGrHqEOKkME5UYVTN!yBOd-BlQ5F!~~60_8.JPG",
 							"http://i.ebayimg.com/00/s/NjAwWDgwMA==/$(KGrHqUOKi8E5!KRByQEBOd-BlQwq!~~60_8.JPG",
 							"http://i.ebayimg.com/00/s/NTM0WDgwMA==/$(KGrHqYOKj!E5W9!lpC!BOd-BlL)Yg~~60_8.JPG",							
@@ -22,18 +23,19 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->	
 	<?php 
-		include '../../playground/live.inc'; 
+		//include '../../playground/live.inc'; 
 	?>
 </head>
 <body>
 	<header>
 		<h1>Garage 360</h1>
-		<div class="subtitle">A <span class="threeD">3D</span> Experience</div>
+		<div class="info">A <span class="threeD">3D</span> Experience</div>
 	</header>
 	<div class="content">
 		<?php 
 			// Extracting the picture config object
 			$picConfigObj = json_decode($picConfig, true);
+			$vehicleName = $picConfigObj["name"]; 
 			$picURLs = $picConfigObj["urls"];				
 			$panelCount = count($picURLs);
 			$dimensions = $picConfigObj["dimensions"];
@@ -49,6 +51,7 @@
 			$panelStyleCommon[] = 'top:'.round($offset/2).'px;';
 			$panelStyleCommon[] = 'left:'.round($offset/2).'px;';
 		?>	
+		<div class="title"><?php echo $vehicleName; ?></div>
 		<section class="container" style="height:<?php echo $height + $offset?>px; width: <?php echo $width + $offset?>px;">			
 			<div id="carousel" style="<?php echo getPrefixedStyle('transform', 'translateZ(-'.$translateZ.'px) rotateY(0deg)');?>">
 				<?php 						
@@ -65,7 +68,12 @@
 					echo implode("\n", $figureMarkup);
 				?>
 		  	</div>
-		</section>			
+		</section>
+		<div class="controls" style="width: <?php echo $width + $offset?>px;">
+			<div class="left"><</div>
+			<div class="spin" style="margin-left: <?php echo ($width + $offset - 185)/2?>px;"></div>
+			<div class="right">></div>
+		</div>			
 	</div>
 	<footer>	
 	</footer>	
@@ -74,9 +82,13 @@
 	<script>
 		$.threeDConfig = {
 			panelCount : <?php echo $panelCount;?>,
-			nodes: {
-					carouselId: 'carousel'
+			nodeSelectors: {
+						carousel: '#carousel',
+						leftArrow: '.controls .left',
+						rightArrow: '.controls .right',
+						spinner: '.controls .spin'
 					},
+			opacityVal : 0.9,
 			rotateX: <?php echo $rotateY;?>,
 			translateZ: <?php echo $translateZ;?>
 		};

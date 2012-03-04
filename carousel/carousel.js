@@ -1,4 +1,4 @@
-(function(threeDConfig) {
+$.init = function(threeDConfig) {
 	var rotateY = threeDConfig.rotateY, 
 		carousel = threeDConfig.nodeSelectors.carousel,
 		leftArrow = threeDConfig.nodeSelectors.leftArrow,
@@ -100,4 +100,4 @@
 				break;			
 		}
 	});
-})($.threeDConfig);
+};

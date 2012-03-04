@@ -32,6 +32,10 @@
 		<div class="info">A <span class="threeD">3D</span> Experience</div>
 	</header>
 	<div class="content">
+ 		<div class="fallback-message">
+        	<p>Your browser <b>doesn't support the features required</b> for this experience</p>
+        	<p>To experience <b>3D</b> please use the latest <b>Chrome</b> or <b>Safari</b> or <b>Firefox</b> browsers. IE 10 (to be released soon) will also handle it.</p>
+    	</div>  	
 		<?php 
 			// Extracting the picture config object
 			$picConfigObj = json_decode($picConfig, true);
@@ -51,51 +55,61 @@
 			$panelStyleCommon[] = 'top:'.round($offset/2).'px;';
 			$panelStyleCommon[] = 'left:'.round($offset/2).'px;';
 		?>	
-		<div class="title"><?php echo $vehicleName; ?></div>
-		<section class="container" style="height:<?php echo $height + $offset?>px; width: <?php echo $width + $offset?>px;">			
-			<div id="carousel" style="<?php echo getPrefixedStyle('transform', 'translateZ(-'.$translateZ.'px) rotateY(0deg)');?>">
-				<?php 						
-					$figureMarkup = array();
-					for($i = 0; $i < $panelCount; $i++) {
-						$panelStyle = $panelStyleCommon;
-						if($i) {
-							$panelStyle[] = 'opacity: 0.9;';
+		<div class="container">
+			<div class="title"><?php echo $vehicleName; ?></div>
+			<section class="container3D" style="height:<?php echo $height + $offset?>px; width: <?php echo $width + $offset?>px;">			
+				<div id="carousel" style="<?php echo getPrefixedStyle('transform', 'translateZ(-'.$translateZ.'px) rotateY(0deg)');?>">
+					<?php 						
+						$figureMarkup = array();
+						for($i = 0; $i < $panelCount; $i++) {
+							$panelStyle = $panelStyleCommon;
+							if($i) {
+								$panelStyle[] = 'opacity: 0.9;';
+							}
+							$panelStyle[] = 'background: url(\''.$picURLs[$i].'\') no-repeat 50% 50%;';
+							$panelStyle[] = getPrefixedStyle('transform', 'rotateY('.$i*$rotateY.'deg) translateZ('.$translateZ.'px)');
+							$figureMarkup[] = '<figure style="'.implode(" ", $panelStyle).'"></figure>';
 						}
-						$panelStyle[] = 'background: url(\''.$picURLs[$i].'\') no-repeat 50% 50%;';
-						$panelStyle[] = getPrefixedStyle('transform', 'rotateY('.$i*$rotateY.'deg) translateZ('.$translateZ.'px)');
-						$figureMarkup[] = '<figure style="'.implode(" ", $panelStyle).'"></figure>';
-					}
-					echo implode("\n", $figureMarkup);
-				?>
-		  	</div>
-		</section>
-		<div class="controls" style="width: <?php echo $width + $offset?>px;">
-			<div class="mask"></div>
-			<div class="left"><</div>
-			<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
-			<div class="right">></div>
-		</div>			
+						echo implode("\n", $figureMarkup);
+					?>
+			  	</div>
+			</section>
+			<div class="controls" style="width: <?php echo $width + $offset?>px;">
+				<div class="mask"></div>
+				<div class="left"><</div>
+				<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
+				<div class="right">></div>
+			</div>	
+		</div>		
 	</div>
 	<footer>	
 	</footer>	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://www.modernizr.com/downloads/modernizr.js"></script>
-	<script>
-		$.threeDConfig = {
-			panelCount : <?php echo $panelCount;?>,
-			nodeSelectors: {
-						carousel: '#carousel',
-						leftArrow: '.controls .left',
-						rightArrow: '.controls .right',
-						spinner: '.controls .spin',
-						mask: '.controls .mask'
-					},
-			opacityVal : 0.9,
-			rotateY: <?php echo $rotateY;?>,
-			translateZ: <?php echo $translateZ;?>
-		};
-	</script>
 	<script src="carousel.js"></script>
+	<script>
+		(function() {
+			if(!Modernizr.csstransforms3d) {
+				$('.container').hide();
+				$('.fallback-message').show();
+				return;
+			}
+			var threeDConfig = {
+					panelCount : <?php echo $panelCount;?>,
+					nodeSelectors: {
+								carousel: '#carousel',
+								leftArrow: '.controls .left',
+								rightArrow: '.controls .right',
+								spinner: '.controls .spin',
+								mask: '.controls .mask'
+							},
+					opacityVal : 0.9,
+					rotateY: <?php echo $rotateY;?>,
+					translateZ: <?php echo $translateZ;?>
+				};
+			$.init(threeDConfig);
+		})();
+	</script>
 </body>
 </html>
 <?php 

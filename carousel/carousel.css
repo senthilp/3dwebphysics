@@ -50,7 +50,18 @@ h1 {
 	font-size: 32px;
 	margin-bottom: -50px;
 }
-.container {
+.fallback-message {
+    font-family: sans-serif;
+    line-height: 1.3;    
+    display: none;
+    width: 780px;
+    padding: 10px 10px 0;
+    margin: 20px auto;
+    border-radius: 10px;
+    border: 1px solid #E4C652;
+    background: #EEDC94;
+}
+.container3D {
   	border: 2px solid #CCC;	
   	border-radius: 4px;
 	position: relative;

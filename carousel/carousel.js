@@ -1,16 +1,16 @@
 (function(threeDConfig) {
-	var rotateX = threeDConfig.rotateX, 
+	var rotateY = threeDConfig.rotateY, 
 		carousel = threeDConfig.nodeSelectors.carousel,
 		leftArrow = threeDConfig.nodeSelectors.leftArrow,
 		rightArrow = threeDConfig.nodeSelectors.rightArrow,
 		spinner = threeDConfig.nodeSelectors.spinner,
+		mask = threeDConfig.nodeSelectors.mask,
 		panelCount = threeDConfig.panelCount,		
 		oVal = threeDConfig.opacityVal,
 		transformProp = Modernizr.prefixed('transform'),
 		transitionProp = Modernizr.prefixed('transition'),
 		currentIndex = 0,
-		rotateIndex = 0,
-		spinDirection = 1,
+		spinDirection = 1,		
 		spinning = 0,
 		timerObj,
 		transformStyle = "translateZ(-" + threeDConfig.translateZ + "px)  rotateY({{}}deg)",
@@ -42,26 +42,34 @@
 			}
 			currentIndex = currentIndex + direction;
 			resetCheck();
-			rotateIndex = rotateIndex + direction;
 			$(carousel + " figure").css("opacity", oVal);
-			$(carousel).get(0).style[transformProp] = getTransform(getCurrentAngle() + (direction * rotateX));
+			$(carousel).get(0).style[transformProp] = getTransform(getCurrentAngle() + (direction * rotateY));
 			$($(carousel + " figure").get(currentIndex>0?panelCount-currentIndex:Math.abs(currentIndex))).css("opacity", "1");
 		},
-		resetSpin = function() {
+		resetSpin = function(force) {
+			// Clear the timer first
 			timerObj && clearTimeout(timerObj);
+			// Reset transition to 1s
 			$(carousel).get(0).style[transitionProp] = '1s ease';
-			spinning = 0;			
+			// Change the spin direction
+			spinDirection *= -1;
+			// Set the spinning flag to 0
+			spinning = 0;
+			if(force){
+				$(carousel).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));
+			}
+			$(mask).hide();
 		},
 		handleSpin = function() {			 
 			if(spinning) {
 				return;
 			}
-			var timer = Math.round(panelCount * 1.5);
+			var timer = Math.round(panelCount * 1.5);				
 			$(carousel).get(0).style[transitionProp] = timer + 's linear';
-			$(carousel).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));
-			spinDirection *= -1;
+			$(carousel).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));			
 			spinning = 1;
-			timerObj = setTimeout(resetSpin, timer * 1000);			
+			timerObj = setTimeout(function(){resetSpin();}, timer * 1000);		
+			$(mask).show();
 		};
 	
 	$(leftArrow).click(function() {
@@ -88,7 +96,7 @@
 				handleSpin();
 				break;
 			case 27:
-				resetSpin();
+				resetSpin(true);
 				break;			
 		}
 	});

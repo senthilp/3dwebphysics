@@ -70,8 +70,9 @@
 		  	</div>
 		</section>
 		<div class="controls" style="width: <?php echo $width + $offset?>px;">
+			<div class="mask"></div>
 			<div class="left"><</div>
-			<div class="spin" style="margin-left: <?php echo ($width + $offset - 185)/2?>px;"></div>
+			<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
 			<div class="right">></div>
 		</div>			
 	</div>
@@ -86,10 +87,11 @@
 						carousel: '#carousel',
 						leftArrow: '.controls .left',
 						rightArrow: '.controls .right',
-						spinner: '.controls .spin'
+						spinner: '.controls .spin',
+						mask: '.controls .mask'
 					},
 			opacityVal : 0.9,
-			rotateX: <?php echo $rotateY;?>,
+			rotateY: <?php echo $rotateY;?>,
 			translateZ: <?php echo $translateZ;?>
 		};
 	</script>

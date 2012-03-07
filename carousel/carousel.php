@@ -77,7 +77,7 @@
 			<div class="controls" style="width: <?php echo $width + $offset?>px;">
 				<div class="mask"></div>
 				<div class="left"><</div>
-				<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
+				<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"><span>Spin</span></div>
 				<div class="right">></div>
 			</div>	
 		</div>		

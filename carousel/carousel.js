@@ -68,6 +68,7 @@ $.init = function(threeDConfig) {
 			$(carousel).get(0).style[transitionProp] = timer + 's linear';
 			$(carousel).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));			
 			spinning = 1;
+			// TODO change to transition end event
 			timerObj = setTimeout(function(){resetSpin();}, timer * 1000);		
 			$(mask).show();
 		};

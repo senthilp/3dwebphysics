@@ -98,8 +98,8 @@
 					panelCount : <?php echo $panelCount;?>,
 					nodeSelectors: {
 								carousel: '#carousel',
-								leftArrow: '.controls .left',
-								rightArrow: '.controls .right',
+								left: '.controls .left',
+								right: '.controls .right',
 								spinner: '.controls .spin',
 								mask: '.controls .mask'
 							},
@@ -118,6 +118,8 @@
 		$preffix = array($default);
 		$preffix[] = "-webkit-".$default;
 		$preffix[] = "-moz-".$default;
+		$preffix[] = "-ms-".$default;
+		$preffix[] = "-o-".$default;
 		return implode(" ", $preffix);
 	}
 ?>

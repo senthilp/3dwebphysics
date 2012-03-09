@@ -1,8 +1,8 @@
 $.init = function(threeDConfig) {
 	var rotateY = threeDConfig.rotateY, 
 		carousel = threeDConfig.nodeSelectors.carousel,
-		leftArrow = threeDConfig.nodeSelectors.leftArrow,
-		rightArrow = threeDConfig.nodeSelectors.rightArrow,
+		leftC = threeDConfig.nodeSelectors.left,
+		rightC = threeDConfig.nodeSelectors.right,
 		spinner = threeDConfig.nodeSelectors.spinner,
 		mask = threeDConfig.nodeSelectors.mask,
 		panelCount = threeDConfig.panelCount,		
@@ -73,11 +73,11 @@ $.init = function(threeDConfig) {
 			$(mask).show();
 		};
 	
-	$(leftArrow).click(function() {
+	$(leftC).click(function() {
 		handleRotate(1);
 	});
 	
-	$(rightArrow).click(function() {
+	$(rightC).click(function() {
 		handleRotate(-1);
 	});	
 

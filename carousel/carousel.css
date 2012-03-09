@@ -91,6 +91,11 @@ h1 {
 	display: block;
 	position: absolute;
 	margin: 0;
+	-moz-transition: opacity 1s ease;
+	-o-transition: opacity 1s ease;
+	-webkit-transition: opacity 1s ease;
+	-ms-transition: opacity 1s ease;
+	transition: opacity 1s ease; 	
 }
 .controls {
 	margin: -74px auto 0;

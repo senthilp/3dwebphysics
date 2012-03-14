@@ -1,4 +1,6 @@
 (function($) {	
+	// Mandating ECMAScript 5 strict mode
+	"use strict";
 	
 	// Retrieving the Modernizr
 	var _m = Modernizr || {};
@@ -22,20 +24,39 @@
 			width = config.dimensions.width,
 			height = config.dimensions.height,
 			offset = config.dimensions.offset,
+			// Setting the static templates
+			figureTmpl = $.PicCarousel3D.FIGURE_TMPL,
+			transformStyle = $.PicCarousel3D.TRANSFORM_STYLE,
 			// Calculated private closures
 			panelCount = picUrls.length,
 			transformProp = _m.prefixed('transform'),
 			transitionProp = _m.prefixed('transition'),
 			rotateY = Math.round(360/panelCount), 
-			translateZ = Math.round(Math.round((width + offset)/2) / Math.tan(Math.PI/panelCount)), 
-			transformStyle = "translateZ(-" + translateZ + "px)  rotateY({{}}deg)",
+			translateZ = Math.round(Math.round((width + offset)/2) / Math.tan(Math.PI/panelCount)), 		
 			currentIndex = 0,
 			spinDirection = 1,		
 			spinning = 0,
 			timerObj,
 			// private functions
-			getTransform = function(angle) {
-				return transformStyle.replace(/{{}}/, angle);
+			/**
+		     * A simple mustache parser which takes a template string and binds the
+		     * data model to it. This does NOT support Lamdas & Partials  
+		     * 
+		     * @method muParse 
+		     * @param {String} templateStr The mustache template string
+		     * @param {Object} model The data model to be binded with the template  
+		     * 
+		     * @return data binded markup
+		     * @private
+		     */			
+			muParse = function(templateStr, model) {
+				return templateStr.replace(/{{([^{}]*)}}/g, function(origStr, token){
+					return model[token];
+				});
+			},
+			getTransform = function(angle, direction) {
+				direction = direction || -1;
+				return muParse(transformStyle, {rotateY: angle, translateZ: direction * translateZ});
 			},
 			getCurrentAngle = function() {
 				var currentStyle = $(carousel).get(0).style[transformProp],
@@ -143,8 +164,9 @@
 				oHeight = height + offset,
 				oWidth = width + offset,
 				xy = Math.round(offset/2), // Left & Top coordinates 
-				panelStyle,
-				panelNode;
+				panelStyle = [],
+				elemStyle = [],
+				panelNodes = [];
 			
 			// Set the styles for the 3D container
 			$(threeDContainer).css({
@@ -155,27 +177,24 @@
 			// Set the carousel section transformation
 			$(carousel).get(0).style[transformProp] = getTransform(0);
 			
-			// Create and apply styles to the figure element
-			panelStyle = {
-					height: height + 'px',
-					width: width + 'px',
-					top: xy + 'px',
-					left: xy + 'px',
-					opacity: oVal
-			}; // Common styles across all panels			
+			// Populate common styles to the panel element
+			panelStyle.push('height:' + height + 'px');
+			panelStyle.push('width:' + width + 'px');
+			panelStyle.push('top:' + xy + 'px');
+			panelStyle.push('left:' + xy + 'px');			
 			
 			for(i=0; i < panelCount; i++) {
-				panelNode = $('<figure></figure>');
-				panelStyle.background = 'url("'+ picUrls[i] + '") no-repeat 50% 50%';
-				panelStyle[_m.cssPrefixed('transform')] = "rotateY(" + (i * rotateY) + "deg) translateZ(" + translateZ + "px)";
-				if(!i) {
-					panelStyle.opacity = 1;
-				}
-				panelNode.css(panelStyle);
-				// Append the figure node
-				$(carousel).append(panelNode);
+				elemStyle = panelStyle;	// Resetting the elemStyle to panel style		
+				elemStyle.push('background:' + 'url(\''+ picUrls[i] + '\') no-repeat 50% 50%');
+				elemStyle.push(_m.cssPrefixed('transform') + ':' + 'rotateY(' + (i * rotateY) + 'deg) translateZ(' + translateZ + 'px)');				
+				if(i) {
+					elemStyle.push('opacity:' + oVal);
+				}				
+				panelNodes.push(muParse(figureTmpl, {style: elemStyle.join(';')}));
 			}
-						
+			// Append the panel elements
+			$(carousel).append(panelNodes.join(''));
+			
 			// Show the parent container and do the reflow
 			$(parentContainer).show();
 		};	
@@ -184,7 +203,10 @@
 		init();
 	};
 	
+	// Static properties
 	$.PicCarousel3D.FIGURE_TMPL = '<figure style="{{style}}"></figure>';
+	
+	$.PicCarousel3D.TRANSFORM_STYLE = 'translateZ({{translateZ}}px)  rotateY({{rotateY}}deg)';
 	
 })($);
 

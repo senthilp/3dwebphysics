@@ -45,8 +45,8 @@
 			$width = $dimensions["width"];
 			$offset = $dimensions["offset"];
 		?>	
-		<div class="container">
-			<div class="title"><?php echo $vehicleName; ?></div>
+		<div class="title"><?php echo $vehicleName; ?></div>
+		<div class="container">			
 			<section class="container3D">			
 				<div id="carousel"></div>
 			</section>

@@ -48,7 +48,7 @@ h1 {
 	text-align: center;
 	color: gray;
 	font-size: 32px;
-	margin-bottom: -50px;
+	margin-bottom: 30px;
 }
 .fallback-message {
     font-family: sans-serif;
@@ -65,7 +65,7 @@ h1 {
   	border: 2px solid #CCC;	
   	border-radius: 4px;
 	position: relative;
-	margin: 80px auto;
+	margin: 0 auto;
   	-moz-perspective: 1000px;
   	-webkit-perspective: 1000px;
   	-ms-perspective: 1000px;
@@ -88,7 +88,6 @@ h1 {
 	transition: transform 1s ease; 
 }
 #carousel figure {
-	display: block;
 	position: absolute;
 	margin: 0;
 	-moz-transition: opacity 1s ease;
@@ -98,7 +97,7 @@ h1 {
 	transition: opacity 1s ease; 	
 }
 .controls {
-	margin: -74px auto 0;
+	margin: 6px auto 0;
 	position: relative;
 }
 .controls div {

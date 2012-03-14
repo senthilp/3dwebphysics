@@ -41,43 +41,19 @@
 			$picConfigObj = json_decode($picConfig, true);
 			$vehicleName = $picConfigObj["name"]; 
 			$picURLs = $picConfigObj["urls"];				
-			$panelCount = count($picURLs);
 			$dimensions = $picConfigObj["dimensions"];
-			$height = $dimensions["height"];
 			$width = $dimensions["width"];
 			$offset = $dimensions["offset"];
-			$rotateY = round(360/$panelCount, 1);
-			$translateZ = round(round(($width + $offset)/2) / tan(pi()/$panelCount));									
-			// Populating panel styles
-			$panelStyleCommon = array();
-			$panelStyleCommon[] = 'height:'.$height.'px;';
-			$panelStyleCommon[] = 'width:'.$width.'px;';
-			$panelStyleCommon[] = 'top:'.round($offset/2).'px;';
-			$panelStyleCommon[] = 'left:'.round($offset/2).'px;';
 		?>	
 		<div class="container">
 			<div class="title"><?php echo $vehicleName; ?></div>
-			<section class="container3D" style="height:<?php echo $height + $offset?>px; width: <?php echo $width + $offset?>px;">			
-				<div id="carousel" style="<?php echo getPrefixedStyle('transform', 'translateZ(-'.$translateZ.'px) rotateY(0deg)');?>">
-					<?php 						
-						$figureMarkup = array();
-						for($i = 0; $i < $panelCount; $i++) {
-							$panelStyle = $panelStyleCommon;
-							if($i) {
-								$panelStyle[] = 'opacity: 0.9;';
-							}
-							$panelStyle[] = 'background: url(\''.$picURLs[$i].'\') no-repeat 50% 50%;';
-							$panelStyle[] = getPrefixedStyle('transform', 'rotateY('.$i*$rotateY.'deg) translateZ('.$translateZ.'px)');
-							$figureMarkup[] = '<figure style="'.implode(" ", $panelStyle).'"></figure>';
-						}
-						echo implode("\n", $figureMarkup);
-					?>
-			  	</div>
+			<section class="container3D">			
+				<div id="carousel"></div>
 			</section>
 			<div class="controls" style="width: <?php echo $width + $offset?>px;">
 				<div class="mask"></div>
 				<div class="left"><</div>
-				<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"><span>Spin</span></div>
+				<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
 				<div class="right">></div>
 			</div>	
 		</div>		
@@ -89,37 +65,25 @@
 	<script src="carousel.js"></script>
 	<script>
 		(function() {
-			if(!Modernizr.csstransforms3d) {
-				$('.container').hide();
-				$('.fallback-message').show();
-				return;
-			}
 			var threeDConfig = {
-					panelCount : <?php echo $panelCount;?>,
+					picUrls : <?php echo json_encode($picURLs);?>,
 					nodeSelectors: {
-								carousel: '#carousel',
-								left: '.controls .left',
-								right: '.controls .right',
-								spinner: '.controls .spin',
-								mask: '.controls .mask'
-							},
+						parentContainer: '.container',
+						threeDContainer: '.container3D',
+						fallbackContainer: '.fallback-message',
+						carousel: '#carousel',
+						controls: {
+							left: '.controls .left',
+							right: '.controls .right',
+							spinner: '.controls .spin'
+						},
+						mask: '.controls .mask'
+					},
 					opacityVal : 0.9,
-					rotateY: <?php echo $rotateY;?>,
-					translateZ: <?php echo $translateZ;?>
+					dimensions: <?php echo json_encode($dimensions); ?> 
 				};
-			$.init(threeDConfig);
+			new $.PicCarousel3D(threeDConfig).render();
 		})();
 	</script>
 </body>
 </html>
-<?php 
-	function getPrefixedStyle($property, $value) {
-		$default = $property.":".$value.";";
-		$preffix = array($default);
-		$preffix[] = "-webkit-".$default;
-		$preffix[] = "-moz-".$default;
-		$preffix[] = "-ms-".$default;
-		$preffix[] = "-o-".$default;
-		return implode(" ", $preffix);
-	}
-?>

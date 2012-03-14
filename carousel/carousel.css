@@ -145,9 +145,6 @@ h1 {
 	position: absolute;
     padding: 12px 0  0 5px;
 }
-.controls div.spin span {
-	font-size: 15px;
-}
 .controls div.spin:hover {
 	border: none;
 	color: black;

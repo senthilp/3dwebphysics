@@ -65,6 +65,8 @@
 		(function() {
 			var threeDConfig = {
 					picUrls : <?php echo json_encode($picURLs);?>,
+					dimensions: <?php echo json_encode($dimensions); ?>,
+					opacityVal : 0.9,							
 					nodeSelectors: {
 						container: '.container',
 						fallback: '.fallback-message',
@@ -75,11 +77,24 @@
 							spinner: '.controls .spin'
 						},
 						mask: '.controls .mask'
-					},
-					opacityVal : 0.9,
-					dimensions: <?php echo json_encode($dimensions); ?> 
+					}
 				};
-			new $.PicCarousel3D(threeDConfig).render();
+			new $.PicCarousel3D({
+				picUrls : <?php echo json_encode($picURLs);?>,
+				dimensions: <?php echo json_encode($dimensions); ?>,
+				opacityVal : 0.9,							
+				nodeSelectors: {
+					container: '.container',
+					fallback: '.fallback-message',
+					controls: {
+						container: '.controls',
+						left: '.controls .left',
+						right: '.controls .right',
+						spinner: '.controls .spin'
+					},
+					mask: '.controls .mask'
+				}
+			}).render();
 		})();
 	</script>
 </body>

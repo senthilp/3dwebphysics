@@ -48,7 +48,6 @@
 			currentIndex = 0,
 			spinDirection = 1,		
 			spinning = 0,
-			timerObj,
 			// private functions
 			/**
 		     * A simple mustache parser which takes a template string and binds the
@@ -110,10 +109,12 @@
 				$($(carouselNode + " figure").get(currentIndex>0?panelCount-currentIndex:Math.abs(currentIndex))).css("opacity", "1");
 			},
 			resetSpin = function(force) {
-				// Clear the timer first
-				timerObj && clearTimeout(timerObj);
+				// Extra caution to first check for spinning
+				if(!spinning) {
+					return;
+				}
 				// Reset transition to 1s
-				$(carouselNode).get(0).style[transitionProp] = '1s ease';
+				$(carouselNode).get(0).style[transitionProp] = _m.cssPrefixed('transform') + ' 1s ease';
 				// Change the spin direction
 				spinDirection *= -1;
 				// Set the spinning flag to 0
@@ -128,11 +129,9 @@
 					return;
 				}
 				var timer = Math.round(panelCount * 1.5);				
-				$(carouselNode).get(0).style[transitionProp] = timer + 's linear';
+				$(carouselNode).get(0).style[transitionProp] = _m.cssPrefixed('transform') + ' ' + timer + 's linear';
 				$(carouselNode).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));			
 				spinning = 1;
-				// TODO change to transition end event
-				timerObj = setTimeout(function(){resetSpin();}, timer * 1000);		
 				$(mask).show();
 			},
 			init = function() {
@@ -178,7 +177,9 @@
 				});		
 				
 				// Transition end events
-				//$(carouselNode).bind(_m.eventEndPrefixed('transition'), resetSpin);
+				$(carouselNode).bind(_m.eventEndPrefixed('transition'), function() {
+					resetSpin(false);
+				});
 			};
 	
 		this.render = function() {
@@ -262,4 +263,4 @@
 })($, window);
 
 // TODO
-// , 4. commenting on config, 5. transition end event
+// , 4. commenting on config

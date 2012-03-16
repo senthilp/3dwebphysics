@@ -46,17 +46,15 @@
 			$offset = $dimensions["offset"];
 		?>	
 		<div class="title"><?php echo $vehicleName; ?></div>
-		<div class="container">			
-			<section class="container3D">			
-				<div id="carousel"></div>
-			</section>
-			<div class="controls" style="width: <?php echo $width + $offset?>px;">
-				<div class="mask"></div>
-				<div class="left"><</div>
-				<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
-				<div class="right">></div>
-			</div>	
-		</div>		
+		<div class="container" style="height: <?php echo $height + $offset?>px;">
+			<div class="throbber"></div>
+		</div>
+		<div class="controls hide" style="width: <?php echo $width + $offset?>px;">
+			<div class="mask"></div>
+			<div class="left"><</div>
+			<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
+			<div class="right">></div>
+		</div>					
 	</div>
 	<footer>	
 	</footer>	
@@ -68,11 +66,10 @@
 			var threeDConfig = {
 					picUrls : <?php echo json_encode($picURLs);?>,
 					nodeSelectors: {
-						parentContainer: '.container',
-						threeDContainer: '.container3D',
-						fallbackContainer: '.fallback-message',
-						carousel: '#carousel',
+						container: '.container',
+						fallback: '.fallback-message',
 						controls: {
+							container: '.controls',
 							left: '.controls .left',
 							right: '.controls .right',
 							spinner: '.controls .spin'

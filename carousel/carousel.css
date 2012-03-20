@@ -86,6 +86,7 @@ h1 {
     width: 64px;	
     color: gray;
     height: 90px;
+    line-height: 90px;
 }
 .controls div:hover {
 	border: 1px solid;
@@ -104,6 +105,7 @@ h1 {
 	background-color: #FFFFFF;
 	opacity: 0.7;
 	display: none;
+	color: black;
 }
 .controls div.mask:hover {
 	color: #000000;

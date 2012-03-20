@@ -50,7 +50,7 @@
 			<div class="throbber"></div>
 		</div>
 		<div class="controls hide" style="width: <?php echo $width + $offset?>px;">
-			<div class="mask"></div>
+			<div class="mask">Press esc to cancel</div>
 			<div class="left"><</div>
 			<div class="spin" style="left: <?php echo (($width + $offset)/2) - 22?>px;"></div>
 			<div class="right">></div>
@@ -63,38 +63,23 @@
 	<script src="carousel.js"></script>
 	<script>
 		(function() {
-			var threeDConfig = {
-					picUrls : <?php echo json_encode($picURLs);?>,
-					dimensions: <?php echo json_encode($dimensions); ?>,
-					opacityVal : 0.9,							
-					nodeSelectors: {
-						container: '.container',
-						fallback: '.fallback-message',
-						controls: {
-							container: '.controls',
-							left: '.controls .left',
-							right: '.controls .right',
-							spinner: '.controls .spin'
-						},
-						mask: '.controls .mask'
-					}
-				};
-			new $.PicCarousel3D({
+			$('.container').PicCarousel3D({
 				picUrls : <?php echo json_encode($picURLs);?>,
 				dimensions: <?php echo json_encode($dimensions); ?>,
 				opacityVal : 0.9,							
 				nodeSelectors: {
-					container: '.container',
 					fallback: '.fallback-message',
 					controls: {
+						keyboard: true,
 						container: '.controls',
 						left: '.controls .left',
 						right: '.controls .right',
-						spinner: '.controls .spin'
+						spinner: '.controls .spin',
+						cancelSpin: '.controls .cancel'
 					},
 					mask: '.controls .mask'
 				}
-			}).render();
+			});			
 		})();
 	</script>
 </body>

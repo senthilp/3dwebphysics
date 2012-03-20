@@ -10,9 +10,17 @@
 			'OTransition'      : 'oTransitionEnd',
 			'msTransition'     : 'MsTransitionEnd',
 			'transition'       : 'transitionend'
-		};
-    //     transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];	
-	// Adding an additional method to Modernizr for handling CSS prefixing
+		},
+		// Static templates
+		TEMPLATES = {
+			carousel: '<section style="border:2px solid #CCC;border-radius:4px;position:relative;margin:0 auto;{{perspectiveProp}}:1000px;{{sectionStyle}}">'
+				+ '<div id="{{carouselId}}" style="width:100%;height:100%;position:absolute;{{transformStyleProp}}:preserve-3d;{{transitionProp}}:{{transformProp}} 1s ease;{{carouselStyle}}">'
+				+'{{figureTmpl}}</div></section>',		
+			figure: '<figure style="position:absolute;margin:0;{{transitionProp}}:opacity 1s ease;{{style}}"></figure>',		
+			transform: 'translateZ({{translateZ}}px)  rotateY({{rotateY}}deg)'			
+		};		
+	
+	// Adding additional methods to Modernizr for handling CSS prefixing and transition events
 	_m.cssPrefixed = function(prop) {
 		return _m.prefixed(prop).replace(/([A-Z])/g, function(str,m1){ 
 					return '-' + m1.toLowerCase(); 
@@ -21,22 +29,51 @@
 	_m.eventEndPrefixed = function(prop) {
 		return transEndEventNames[_m.prefixed(prop)];
 	};
-		
-	$.PicCarousel3D = function(config) {
+
+	/**
+	 * PicCarousel3D is a JQuery based plugin to create a 3D based pciture
+	 * carousel. It uses CSS3 3D transforms and basic geometry math to 
+	 * create the experience. 
+	 * 
+	 * PicCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
+	 * for feature detection and retrieving vendor prefixes. 
+	 * 
+	 * The input JSON controls the input feed and the various configurations of
+	 * the plugin.   
+	 * 
+	 *		{
+	 *			picUrls : [], //
+	 *			dimensions: {},
+	 *			opacityVal : 0.9,							
+	 *			nodeSelectors: {
+	 * 				fallback: '.fallback-message',
+	 *				controls: {
+	 *					keyboard: true,
+	 *					container: '.controls',
+	 *					left: '.controls .left',
+	 *					right: '.controls .right',
+	 *					spinner: '.controls .spin',
+	 *					cancelSpin: '.controls .cancel'
+	 *				},
+	 *				mask: '.controls .mask'
+	 *			}
+	 *		} 	
+	 * 
+	 */	
+	$.fn.PicCarousel3D = function(config) {
 			// private variables
-		var picUrls =  config.picUrls,
-			container = config.nodeSelectors.container,
+		var picUrls =  config.picUrls || [],
 			fallback = config.nodeSelectors.fallback,	
 			controls = config.nodeSelectors.controls,
 			mask = config.nodeSelectors.mask,		
 			oVal = config.opacityVal,
 			width = config.dimensions.width,
 			height = config.dimensions.height,
-			offset = config.dimensions.offset,
+			offset = config.dimensions.offset,			
 			// Setting the static templates
-			figureTmpl = $.PicCarousel3D.FIGURE_TMPL,
-			carouselTmpl = $.PicCarousel3D.CAROUSEL_TMPL,
-			transformStyle = $.PicCarousel3D.TRANSFORM_STYLE,
+			figureTmpl = TEMPLATES.figure,
+			carouselTmpl = TEMPLATES.carousel,
+			transformStyle = TEMPLATES.transform,
 			// Calculated private closures
 			cIndex = index++, // The carousel index, whose state is maintained in the closure variable index		
 			carouselNode = '#carousel' + cIndex,
@@ -109,16 +146,16 @@
 				$($(carouselNode + " figure").get(currentIndex>0?panelCount-currentIndex:Math.abs(currentIndex))).css("opacity", "1");
 			},
 			resetSpin = function(force) {
-				// Extra caution to first check for spinning
+				// Double check to ensure spinning is on
 				if(!spinning) {
 					return;
 				}
+				// Set the spinning flag to 0
+				spinning = 0;
 				// Reset transition to 1s
 				$(carouselNode).get(0).style[transitionProp] = _m.cssPrefixed('transform') + ' 1s ease';
 				// Change the spin direction
 				spinDirection *= -1;
-				// Set the spinning flag to 0
-				spinning = 0;
 				if(force){
 					$(carouselNode).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));
 				}
@@ -131,8 +168,9 @@
 				var timer = Math.round(panelCount * 1.5);				
 				$(carouselNode).get(0).style[transitionProp] = _m.cssPrefixed('transform') + ' ' + timer + 's linear';
 				$(carouselNode).get(0).style[transformProp] = getTransform(getCurrentAngle() + (spinDirection * 360));			
-				spinning = 1;
 				$(mask).show();
+				// Set the spinning flag
+				spinning = 1;
 			},
 			init = function() {
 				// Hide fallback container, in case it is shown previouly
@@ -140,49 +178,7 @@
 				// Hide the controls if present
 				controls && $(controls.container).hide();
 			}, 
-			postRender = function(){
-				// Event binding for UI controls
-				if(controls) {
-					$(controls.left).click(function() {
-						handleRotate(1);
-					});
-					
-					$(controls.right).click(function() {
-						handleRotate(-1);
-					});	
-		
-					$(controls.spinner).click(function() {
-						handleSpin();
-					});		
-					// Show the controls
-					$(controls.container).show();
-				}
-				
-				// Event binding for keyboard events
-				$(document).keydown(function(event) {
-					switch(event.which) {
-						case 37:
-							handleRotate(1);
-							break;
-						case 39:
-							handleRotate(-1);
-							break;			
-						case 13:
-							handleSpin();
-							break;
-						case 27:
-							resetSpin(true);
-							break;			
-					}
-				});		
-				
-				// Transition end events
-				$(carouselNode).bind(_m.eventEndPrefixed('transition'), function() {
-					resetSpin(false);
-				});
-			};
-	
-		this.render = function() {
+			render = function(jNode) {
 			// Check for browser compatability
 			if(!_m.csstransforms3d) {
 				// Show fallback and return immediately
@@ -242,24 +238,66 @@
 			});
 			
 			// Add the markup to the container
-			$(container).html(carouselMarkup);
-			// Call post render
-			postRender();
-		};	
+			jNode.html(carouselMarkup);
+		},
+		postRender = function(){
+			var keyboardEvents = true;
+			// Event binding for UI controls
+			if(controls) {
+				keyboardEvents = typeof controls.keyboard != 'undefined' && controls.keyboard; 
+				$(controls.left).click(function() {
+					handleRotate(1);
+				});
+				
+				$(controls.right).click(function() {
+					handleRotate(-1);
+				});	
+	
+				$(controls.spinner).click(function() {
+					handleSpin();
+				});
+				$(controls.cancelSpin).click(function() {
+					resetSpin(true);
+				});		
+				// Show the controls
+				$(controls.container).show();
+			}
+			
+			// Event binding for keyboard events
+			if(keyboardEvents) {
+				$(document).keydown(function(event) {
+					switch(event.which) {
+						case 37:
+							handleRotate(1);
+							break;
+						case 39:
+							handleRotate(-1);
+							break;			
+						case 13:
+							handleSpin();
+							break;
+						case 27:
+							resetSpin(true);
+							break;			
+					}
+				});	
+			}
+			
+			// Bind the transition end event
+			$(carouselNode).bind(_m.eventEndPrefixed('transition'), function(event) {
+				if(event.target === $(carouselNode).get(0)) {
+					resetSpin(false);
+				}
+			});			
+		};
 		
 		// Initialize the carousel
 		init();
-	};
-	
-	// Static properties
-	$.PicCarousel3D.CAROUSEL_TMPL = '<section style="border:2px solid #CCC;border-radius:4px;position:relative;margin:0 auto;{{perspectiveProp}}:1000px;{{sectionStyle}}">'
-									+ '<div id="{{carouselId}}" style="width:100%;height:100%;position:absolute;{{transformStyleProp}}:preserve-3d;{{transitionProp}}:{{transformProp}} 1s ease;{{carouselStyle}}">'
-									+'{{figureTmpl}}</div></section>';
-	
-	$.PicCarousel3D.FIGURE_TMPL = '<figure style="position:absolute;margin:0;{{transitionProp}}:opacity 1s ease;{{style}}"></figure>';
-	
-	$.PicCarousel3D.TRANSFORM_STYLE = 'translateZ({{translateZ}}px)  rotateY({{rotateY}}deg)';
-	
+		// Render the UI
+		render(this);
+		// Post render - Event binding
+		postRender();
+	};	
 })($, window);
 
 // TODO

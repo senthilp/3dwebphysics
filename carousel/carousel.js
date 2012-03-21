@@ -31,7 +31,7 @@
 	};
 
 	/**
-	 * PicCarousel3D is a JQuery based plugin to create a 3D based pciture
+	 * PicCarousel3D is a JQuery based plugin to create a 3D based picture
 	 * carousel. It uses CSS3 3D transforms and basic geometry math to 
 	 * create the experience. 
 	 * 

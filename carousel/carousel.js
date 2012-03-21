@@ -1,4 +1,4 @@
-(function($, window) {	
+!function($, window) {	
 	// Mandating ECMAScript 5 strict mode
 	"use strict";
 	
@@ -35,27 +35,39 @@
 	 * carousel. It uses CSS3 3D transforms and basic geometry math to 
 	 * create the experience. 
 	 * 
+	 * The plugin uses inbuilt mustache templates to build the markup. Please
+	 * refer to carousel.php to see the overall page markup.
+	 * 
 	 * PicCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
 	 * for feature detection and retrieving vendor prefixes. 
+	 * 
+	 * NOTE: This plugin is not advised when there are only 2 items/pictures to be 
+	 * rotated as that doesn't bring the real 3D effects and can also cause adverse
+	 * behaviors.
 	 * 
 	 * The input JSON controls the input feed and the various configurations of
 	 * the plugin.   
 	 * 
 	 *		{
-	 *			picUrls : [], //
-	 *			dimensions: {},
-	 *			opacityVal : 0.9,							
-	 *			nodeSelectors: {
-	 * 				fallback: '.fallback-message',
-	 *				controls: {
-	 *					keyboard: true,
-	 *					container: '.controls',
-	 *					left: '.controls .left',
-	 *					right: '.controls .right',
-	 *					spinner: '.controls .spin',
-	 *					cancelSpin: '.controls .cancel'
+	 *			picUrls : ["http:\/\/i.img.one.JPG","http:\/\/i.img.two.JPG"], // Mandatory, the list of picture URLs to float in 3D. Order is preserved
+	 *			dimensions: {"height":300,"width":400,"offset":40}, // Mandatory, JSON encapsulating the height & width of the picture. Optional offset parameter
+	 *																   to specify the distance between images. Default value is 40px
+	 *			opacityVal : 0.9, // Optional, The opacity (amount of transparency) value that should be used on the pictures. Default value is 0.9							
+	 *			nodeSelectors: { // Optional, A JSON object representing various DOM nodes involved with the 3D carousel
+	 * 				fallback: '.fallback-message', // Optional, The DOM selector of the fallback message container 
+	 *				controls: { // Optional, A JSON object representing the DOM nodes of the carousel navigation controllers 
+	 *					keyboard: true, // Optional, A flag to enable keyboard controls. Default value is true
+	 *									   Left Arrow => Move left
+	 *									   Right Arrow => Move right
+	 *									   Enter => Start spin
+	 *									   esc => Stop spinning
+	 *					container: '.controls', // Optional, The selector of the controls container
+	 *					left: '.controls .left', // Optional, The selector for moving the carousel to left  
+	 *					right: '.controls .right', // Optional, The selector for moving the carousel to right
+	 *					spinner: '.controls .spin', // Optional, The selector for spining the carousel
+	 *					cancelSpin: '.controls .cancel' // Optional, The selector for cancelling a spin
 	 *				},
-	 *				mask: '.controls .mask'
+	 *				mask: '.controls .mask' // Optional, The selector for the mask layer if any to hide the controls when spinning
 	 *			}
 	 *		} 	
 	 * 
@@ -66,10 +78,10 @@
 			fallback = config.nodeSelectors.fallback,	
 			controls = config.nodeSelectors.controls,
 			mask = config.nodeSelectors.mask,		
-			oVal = config.opacityVal,
-			width = config.dimensions.width,
-			height = config.dimensions.height,
-			offset = config.dimensions.offset,			
+			oVal = config.opacityVal || 0.9,
+			width = config.dimensions.width || 0,
+			height = config.dimensions.height || 0,
+			offset = config.dimensions.offset || 40,			
 			// Setting the static templates
 			figureTmpl = TEMPLATES.figure,
 			carouselTmpl = TEMPLATES.carousel,
@@ -298,7 +310,7 @@
 		// Post render - Event binding
 		postRender();
 	};	
-})($, window);
+}($, window);
 
 // TODO
 // , 4. commenting on config

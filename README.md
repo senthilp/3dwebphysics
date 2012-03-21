@@ -42,3 +42,15 @@ The JavaScript for building the 3D carousel is pretty simple
 		}
 	});
 
+The various options associated with the 3D carousel (as seen in the above JS code) 
+are listed below
+###picUrls
+**Mandatory**
+<br/>
+The list/array of picture URLs to float in 3D. Order is preserved.
+###dimensions
+**Mandatory**
+<br/>
+JSON encapsulating the height & width of the picture. Optional offset parameter to 
+specify the distance between images. Default value is 40px.
+

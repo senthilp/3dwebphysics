@@ -311,6 +311,3 @@
 		postRender();
 	};	
 }($, window);
-
-// TODO
-// , 4. commenting on config

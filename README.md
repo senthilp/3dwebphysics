@@ -53,4 +53,52 @@ The list/array of picture URLs to float in 3D. Order is preserved.
 <br/>
 JSON encapsulating the height & width of the picture. Optional offset parameter to 
 specify the distance between images. Default value is 40px.
-
+###opacityVal
+**Optional**
+<br/>
+The opacity (amount of transparency) value that should be used on the pictures. Default 
+value is 0.9
+###nodeSelectors
+**Optional**
+<br/>
+A JSON object representing various DOM nodes involved with the 3D carousel.
+###fallback
+**Optional**
+<br/>
+The DOM selector for the fallback message container.
+###controls
+**Optional**
+<br/>
+A JSON object representing the DOM nodes of the carousel navigation controllers
+###keyboard
+**Optional**
+<br/>
+A flag to enable keyboard controls. Default value is true <br/>
+    Left Arrow => Move left <br/>
+    Right Arrow => Move right <br/>
+    Enter => Start spin <br/>
+    esc => Stop spinning
+###container
+**Optional**
+<br/>
+The selector for the controls container
+###left
+**Optional**
+<br/>
+The selector for moving the carousel to left
+###right
+**Optional**
+<br/>
+The selector for moving the carousel to right
+###spinner
+**Optional**
+<br/>
+The selector for spining the carousel
+###cancelSpin
+**Optional**
+<br/>
+The selector for cancelling a spin
+###mask
+**Optional**
+<br/>
+The selector for the mask layer if any to hide the controls when spinning

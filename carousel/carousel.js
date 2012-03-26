@@ -31,7 +31,7 @@
 	};
 
 	/**
-	 * PicCarousel3D is a JQuery based plugin to create a 3D based picture
+	 * PicCarousel3D is a JQuery based plugin to create a 3D based picture/image
 	 * carousel. It uses CSS3 3D transforms and basic geometry math to 
 	 * create the experience. 
 	 * 
@@ -41,7 +41,7 @@
 	 * PicCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
 	 * for feature detection and retrieving vendor prefixes. 
 	 * 
-	 * NOTE: This plugin is not advised when there are only 2 items/pictures to 
+	 * NOTE: This plugin is not advised when there are only 2 items/images to 
 	 * be rotated, as they fail to deliver the real 3D effects and can also 
 	 * cause adverse behaviors.
 	 * 
@@ -49,10 +49,10 @@
 	 * the plugin.   
 	 * 
 	 *		{
-	 *			picUrls : ["http:\/\/i.img.one.JPG","http:\/\/i.img.two.JPG"], // Mandatory, the list of picture URLs to float in 3D. Order is preserved
-	 *			dimensions: {"height":300,"width":400,"offset":40}, // Mandatory, JSON encapsulating the height & width of the picture. Optional offset parameter
+	 *			imageUrls : ["http:\/\/i.img.one.JPG","http:\/\/i.img.two.JPG"], // Mandatory, the list of image URLs to float in 3D. Order is preserved
+	 *			dimensions: {"height":300,"width":400,"offset":40}, // Mandatory, JSON encapsulating the height & width of the image. Optional offset parameter
 	 *																   to specify the distance between images. Default value is 40px
-	 *			opacityVal : 0.9, // Optional, The opacity (amount of transparency) value that should be used on the pictures. Default value is 0.9							
+	 *			opacityVal : 0.9, // Optional, The opacity (amount of transparency) value that should be used on the images. Default value is 0.9							
 	 *			nodeSelectors: { // Optional, A JSON object representing various DOM nodes involved with the 3D carousel
 	 * 				fallback: '.fallback-message', // Optional, The DOM selector for the fallback message container 
 	 *				controls: { // Optional, A JSON object representing the DOM nodes of the carousel navigation controllers 
@@ -74,7 +74,7 @@
 	 */	
 	$.fn.PicCarousel3D = function(config) {
 			// private variables
-		var picUrls =  config.picUrls || [],
+		var imageUrls =  config.imageUrls || [],
 			fallback = config.nodeSelectors.fallback,	
 			controls = config.nodeSelectors.controls,
 			mask = config.nodeSelectors.mask,		
@@ -89,7 +89,7 @@
 			// Calculated private closures
 			cIndex = index++, // The carousel index, whose state is maintained in the closure variable index		
 			carouselNode = '#carousel' + cIndex,
-			panelCount = picUrls.length,
+			panelCount = imageUrls.length,
 			transformProp = _m.prefixed('transform'),
 			transitionProp = _m.prefixed('transition'),
 			rotateY = Math.round(360/panelCount), 
@@ -226,7 +226,7 @@
 			};
 			
 			for(i=0; i < panelCount; i++) {
-				panelStyle.background = 'url(\''+ picUrls[i] + '\') no-repeat 50% 50%';
+				panelStyle.background = 'url(\''+ imageUrls[i] + '\') no-repeat 50% 50%';
 				panelStyle[_m.cssPrefixed('transform')] = 'rotateY(' + (i * rotateY) + 'deg) translateZ(' + translateZ + 'px)';				
 				if(i) {
 					panelStyle.opacity = oVal;

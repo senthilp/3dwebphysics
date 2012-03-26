@@ -40,7 +40,7 @@
 			// Extracting the picture config object
 			$picConfigObj = json_decode($picConfig, true);
 			$vehicleName = $picConfigObj["name"]; 
-			$picURLs = $picConfigObj["urls"];				
+			$imageUrls = $picConfigObj["urls"];				
 			$dimensions = $picConfigObj["dimensions"];
 			$width = $dimensions["width"];
 			$offset = $dimensions["offset"];
@@ -64,7 +64,7 @@
 	<script>
 		(function() {
 			$('.container').PicCarousel3D({
-				picUrls : <?php echo json_encode($picURLs);?>,
+				imageUrls : <?php echo json_encode($imageUrls);?>,
 				dimensions: <?php echo json_encode($dimensions); ?>,
 				opacityVal : 0.9,							
 				nodeSelectors: {

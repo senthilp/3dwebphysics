@@ -31,14 +31,14 @@
 	};
 
 	/**
-	 * PicCarousel3D is a JQuery based plugin to create a 3D based picture/image
+	 * imageCarousel3D is a JQuery based plugin to create a 3D based picture/image
 	 * carousel. It uses CSS3 3D transforms and basic geometry math to 
 	 * create the experience. 
 	 * 
 	 * The plugin uses inbuilt mustache templates to build the markup. Please
 	 * refer to carousel.php to see the overall page markup.
 	 * 
-	 * PicCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
+	 * imageCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
 	 * for feature detection and retrieving vendor prefixes. 
 	 * 
 	 * NOTE: This plugin is not advised when there are only 2 items/images to 
@@ -72,7 +72,7 @@
 	 *		} 	
 	 * 
 	 */	
-	$.fn.PicCarousel3D = function(config) {
+	$.fn.imageCarousel3D = function(config) {
 			// private variables
 		var imageUrls =  config.imageUrls || [],
 			fallback = config.nodeSelectors.fallback,	

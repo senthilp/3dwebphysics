@@ -1,5 +1,5 @@
 <?php
-	$picConfig = '{
+	$imageConfig = '{
 				    "name": "2010 Bugatti Veyron",
 					"urls": ["http://i.ebayimg.com/00/s/NjAwWDgwMA==/$%28KGrHqEOKkME5UYVTN!yBOd-BlQ5F!~~60_8.JPG",
 							"http://i.ebayimg.com/00/s/NjAwWDgwMA==/$(KGrHqUOKi8E5!KRByQEBOd-BlQwq!~~60_8.JPG",
@@ -37,11 +37,11 @@
         	<p>To experience <b>3D</b> please use the latest <b>Chrome</b> or <b>Safari</b> or <b>Firefox</b> browsers. IE 10 (to be released soon) will also handle it.</p>
     	</div>  	
 		<?php 
-			// Extracting the picture config object
-			$picConfigObj = json_decode($picConfig, true);
-			$vehicleName = $picConfigObj["name"]; 
-			$imageUrls = $picConfigObj["urls"];				
-			$dimensions = $picConfigObj["dimensions"];
+			// Extracting the image config object
+			$imageConfigObj = json_decode($imageConfig, true);
+			$vehicleName = $imageConfigObj["name"]; 
+			$imageUrls = $imageConfigObj["urls"];				
+			$dimensions = $imageConfigObj["dimensions"];
 			$width = $dimensions["width"];
 			$offset = $dimensions["offset"];
 		?>	
@@ -63,7 +63,7 @@
 	<script src="carousel.js"></script>
 	<script>
 		(function() {
-			$('.container').PicCarousel3D({
+			$('.container').imageCarousel3D({
 				imageUrls : <?php echo json_encode($imageUrls);?>,
 				dimensions: <?php echo json_encode($dimensions); ?>,
 				opacityVal : 0.9,							

@@ -42,6 +42,7 @@
 			$vehicleName = $imageConfigObj["name"]; 
 			$imageUrls = $imageConfigObj["urls"];				
 			$dimensions = $imageConfigObj["dimensions"];
+			$height = $dimensions["height"];
 			$width = $dimensions["width"];
 			$offset = $dimensions["offset"];
 		?>	

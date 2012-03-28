@@ -256,7 +256,7 @@
 			var keyboardEvents = true;
 			// Event binding for UI controls
 			if(controls) {
-				keyboardEvents = typeof controls.keyboard != 'undefined' && controls.keyboard; 
+				keyboardEvents = typeof controls.keyboard != 'undefined'?controls.keyboard: true; 
 				$(controls.left).click(function() {
 					handleRotate(1);
 				});

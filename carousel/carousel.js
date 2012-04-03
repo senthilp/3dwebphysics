@@ -251,6 +251,8 @@
 			
 			// Add the markup to the container
 			jNode.html(carouselMarkup);
+			// Post render - Event binding
+			postRender();
 		},
 		postRender = function(){
 			var keyboardEvents = true;
@@ -307,7 +309,5 @@
 		init();
 		// Render the UI
 		render(this);
-		// Post render - Event binding
-		postRender();
 	};	
 }($, window);

@@ -190,6 +190,56 @@
 				// Hide the controls if present
 				controls && $(controls.container).hide();
 			}, 
+			postRender = function(){
+				var keyboardEvents = true;
+				// Event binding for UI controls
+				if(controls) {
+					keyboardEvents = typeof controls.keyboard != 'undefined'?controls.keyboard: true; 
+					$(controls.left).click(function() {
+						handleRotate(1);
+					});
+					
+					$(controls.right).click(function() {
+						handleRotate(-1);
+					});	
+		
+					$(controls.spinner).click(function() {
+						handleSpin();
+					});
+					$(controls.cancelSpin).click(function() {
+						resetSpin(true);
+					});		
+					// Show the controls
+					$(controls.container).show();
+				}
+				
+				// Event binding for keyboard events
+				if(keyboardEvents) {
+					$(document).keydown(function(event) {
+						switch(event.which) {
+							case 37:
+								handleRotate(1);
+								break;
+							case 39:
+								handleRotate(-1);
+								break;			
+							case 13:
+								handleSpin();
+								break;
+							case 27:
+								resetSpin(true);
+								break;			
+						}
+					});	
+				}
+				
+				// Bind the transition end event
+				$(carouselNode).bind(_m.eventEndPrefixed('transition'), function(event) {
+					if(event.target === $(carouselNode).get(0)) {
+						resetSpin(false);
+					}
+				});			
+			},			
 			render = function(jNode) {
 			// Check for browser compatability
 			if(!_m.csstransforms3d) {
@@ -253,56 +303,6 @@
 			jNode.html(carouselMarkup);
 			// Post render - Event binding
 			postRender();
-		},
-		postRender = function(){
-			var keyboardEvents = true;
-			// Event binding for UI controls
-			if(controls) {
-				keyboardEvents = typeof controls.keyboard != 'undefined'?controls.keyboard: true; 
-				$(controls.left).click(function() {
-					handleRotate(1);
-				});
-				
-				$(controls.right).click(function() {
-					handleRotate(-1);
-				});	
-	
-				$(controls.spinner).click(function() {
-					handleSpin();
-				});
-				$(controls.cancelSpin).click(function() {
-					resetSpin(true);
-				});		
-				// Show the controls
-				$(controls.container).show();
-			}
-			
-			// Event binding for keyboard events
-			if(keyboardEvents) {
-				$(document).keydown(function(event) {
-					switch(event.which) {
-						case 37:
-							handleRotate(1);
-							break;
-						case 39:
-							handleRotate(-1);
-							break;			
-						case 13:
-							handleSpin();
-							break;
-						case 27:
-							resetSpin(true);
-							break;			
-					}
-				});	
-			}
-			
-			// Bind the transition end event
-			$(carouselNode).bind(_m.eventEndPrefixed('transition'), function(event) {
-				if(event.target === $(carouselNode).get(0)) {
-					resetSpin(false);
-				}
-			});			
 		};
 		
 		// Initialize the carousel

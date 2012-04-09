@@ -61,7 +61,7 @@
 	</footer>	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="http://www.modernizr.com/downloads/modernizr.js"></script>
-	<script src="carousel.js"></script>
+	<script src="jquery.carousel3d.js"></script>
 	<script>
 		(function() {
 			$('.container').imageCarousel3D({

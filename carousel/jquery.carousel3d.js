@@ -73,7 +73,8 @@
 	 * 
 	 */	
 	$.fn.imageCarousel3D = function(config) {
-			// private variables
+			// private local variables 
+			// Retrieving config object and setting to local variables
 		var imageUrls =  config.imageUrls || [],
 			fallback = config.nodeSelectors.fallback,	
 			controls = config.nodeSelectors.controls,
@@ -81,7 +82,7 @@
 			oVal = config.opacityVal || 0.9,
 			width = config.dimensions.width || 0,
 			height = config.dimensions.height || 0,
-			offset = config.dimensions.offset || 40,			
+			offset = config.dimensions.offset || 40,		
 			// Setting the static templates
 			figureTmpl = TEMPLATES.figure,
 			carouselTmpl = TEMPLATES.carousel,
@@ -240,7 +241,7 @@
 					}
 				});			
 			},			
-			render = function(jNode) {
+			render = function(node) {
 			// Check for browser compatability
 			if(!_m.csstransforms3d) {
 				// Show fallback and return immediately
@@ -300,14 +301,17 @@
 			});
 			
 			// Add the markup to the container
-			jNode.html(carouselMarkup);
+			$(node).html(carouselMarkup);
 			// Post render - Event binding
 			postRender();
 		};
 		
-		// Initialize the carousel
-		init();
-		// Render the UI
-		render(this);
+		// Returning JQuery to maintain chainability
+		return this.each(function() {
+			// Initialize the carousel
+			init();
+			// Render the UI
+			render(this);
+		});
 	};	
 }($, window);

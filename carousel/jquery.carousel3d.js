@@ -77,9 +77,10 @@
 				// private local variables 
 				// Retrieving config object and setting to local variables
 			var imageUrls =  config.imageUrls || [],
-				fallback = config.nodeSelectors.fallback,	
-				controls = config.nodeSelectors.controls,
-				mask = config.nodeSelectors.mask,		
+				nodeSelectors = config.nodeSelectors,
+				fallback = nodeSelectors && nodeSelectors.fallback,	
+				controls = nodeSelectors && nodeSelectors.controls,
+				mask = nodeSelectors && nodeSelectors.mask,		
 				oVal = config.opacityVal || 0.9,
 				width = config.dimensions.width || 0,
 				height = config.dimensions.height || 0,

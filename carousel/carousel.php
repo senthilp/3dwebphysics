@@ -22,9 +22,6 @@
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->	
-	<?php 
-		//include '../../playground/live.inc'; 
-	?>
 </head>
 <body>
 	<header>

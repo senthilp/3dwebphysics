@@ -42,6 +42,8 @@ The JavaScript for building the 3D carousel is pretty simple
 		}
 	});
 
+You can also simply download this repo, and load the example.html in your browser to see this live in action.
+
 The various options associated with the 3D carousel (as seen in the above JS code) 
 are listed below
 ###imageUrls

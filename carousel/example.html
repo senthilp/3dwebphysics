@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>Carousel Example</title>
+   <link rel="stylesheet" type="text/css" href="css/carousel.css" />
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script src="http://www.modernizr.com/downloads/modernizr.js"></script>
+   <script src="js/jquery.carousel3d.js"></script>
+   </head>
+   <body>
+   <header>
+      <h1>Carousel 360</h1>
+   </header>
+   <div class="content">
+       <div class="fallback-message">
+           <p>Your browser <b>doesn't support the features required</b> for this experience</p>
+           <p>To experience <b>3D</b> please use the latest <b>Chrome</b> 
+                   or <b>Safari</b> or <b>Firefox</b> browsers. IE 10 (to be released soon) will also handle it.</p>
+       </div>     
+   <div class="container" style="height: 300px;"> </div> 
+
+        <div class="controls hide" style="width: 290px;">
+                <div class="mask">Press esc to cancel</div>
+                <div class="left"><</div>
+                <div class="spin" style="left: 123px;"></div>
+                <div class="right">></div>
+        </div>
+
+   <script type="text/javascript">
+      $('.container').imageCarousel3D({
+         imageUrls : [ <!--A list of images ... of form of http://foo.com/images/1.jpg -->
+            "images/1.jpg",
+            "images/2.jpg",
+            "images/3.jpg",
+            "images/4.jpg",
+            "images/5.jpg"
+         ],
+         dimensions: {"height":300,"width":400,"offset":40},
+         opacityVal : 0.9,                           
+         nodeSelectors: {
+            fallback: '.fallback-message',
+            controls: {
+               keyboard: true,
+               container: '.controls',
+               left: '.controls .left',
+               right: '.controls .right',
+               spinner: '.controls .spin',
+               cancelSpin: '.controls .cancel'
+           },
+           mask: '.controls .mask'
+       }
+    });
+   </script>
+   </body>
+</html>

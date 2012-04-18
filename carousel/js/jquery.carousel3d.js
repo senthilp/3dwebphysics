@@ -1,3 +1,9 @@
+/**
+ * 3dwebphysics 
+ *
+ * Copyright 2012, Senthil Padmanabhan
+ * Released under the MIT License
+ */
 !function($, window) {	
 	// Mandating ECMAScript 5 strict mode
 	"use strict";

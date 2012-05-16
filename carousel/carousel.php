@@ -18,12 +18,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Garage 360 - A 3D Experience</title>
-	<link type="text/css" href="css/carousel.css" rel="stylesheet"/>
+	<link type="text/css" href="carousel/css/carousel.css" rel="stylesheet"/>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->	
 </head>
-<body>
+<body id="jqt">
 	<header>
 		<h1>Garage 360</h1>
 		<div class="info">A <span class="threeD">3D</span> Experience</div>
@@ -56,11 +56,13 @@
 	</div>
 	<footer>	
 	</footer>	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script src="http://www.modernizr.com/downloads/modernizr.js"></script>
-	<script src="js/jquery.carousel3d.js"></script>
+	<script src="carousel/js/lib/jquery.min.js"></script>
+	<script src="carousel/js/lib/jquery.touchSwipe.js"></script>
+	<script src="carousel/js/lib/modernizr.js"></script>
+	<script src="carousel/js/jquery.carousel3d.js"></script>
 	<script>
 		(function() {
+			// Trigerring the 3D carousel
 			$('.container').imageCarousel3D({
 				imageUrls : <?php echo json_encode($imageUrls);?>,
 				dimensions: <?php echo json_encode($dimensions); ?>,

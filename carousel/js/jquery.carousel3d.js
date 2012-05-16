@@ -43,10 +43,15 @@
 		 * create the experience. 
 		 * 
 		 * The plugin uses inbuilt mustache templates to build the markup. Please
-		 * refer to carousel.php to see the overall page markup.
+		 * refer to example.html to see the overall page markup.
 		 * 
 		 * imageCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
 		 * for feature detection and retrieving vendor prefixes. 
+		 * 
+		 * If viewed in a touch enabled device, it can handle touch events swipe left & 
+		 * swipe right using the JQuery Swipe plugin touchSwipe https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
+		 * For handling more granular events please override the method handleTouch 
+		 * and include the appropriate library.
 		 * 
 		 * NOTE: This plugin is not advised when there are only 2 items/images to 
 		 * be rotated, as they fail to deliver the real 3D effects and can also 
@@ -166,6 +171,28 @@
 					$(carouselNode).get(0).style[transformProp] = getTransform(getCurrentAngle() + (direction * rotateY));
 					$($(carouselNode + " figure").get(currentIndex>0?panelCount-currentIndex:Math.abs(currentIndex))).css("opacity", "1");
 				},
+				/**
+			     * Handles touch events => swipe left & swipe right
+			     * Uses the Jquery Swipe plugin touchSwipe https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
+			     * Can be overriden to use any touch events plugin
+			     * 
+			     * @method handleTouch   
+			     * 
+			     * @override
+			     * @private
+			     */							
+				handleTouch = function() {
+					// Override the swipe handler if needed
+					var swipeHandler = function(evt, direction){
+						handleRotate(direction === 'left'? -1: 1);						
+					};
+					if($.fn.swipe) {
+						// Attach swipe event to the below node
+						$(carouselNode + ' figure').swipe({
+							swipe: swipeHandler
+						});											
+					}
+				},
 				resetSpin = function(force) {
 					// Double check to ensure spinning is on
 					if(!spinning) {
@@ -240,6 +267,11 @@
 									break;			
 							}
 						});	
+					}
+					
+					// Touch events
+					if(_m.touch) {
+						handleTouch();
 					}
 					
 					// Bind the transition end event

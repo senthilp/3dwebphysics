@@ -43,7 +43,8 @@
 		 * create the experience. 
 		 * 
 		 * The plugin uses inbuilt mustache templates to build the markup. Please
-		 * refer to example.html to see the overall page markup.
+		 * refer to example.html https://github.com/senthilp/3dwebphysics/blob/master/carousel/example.html
+		 * to see the overall page markup.
 		 * 
 		 * imageCarousel3D plugin depends on the Modernizr API http://www.modernizr.com
 		 * for feature detection and retrieving vendor prefixes. 

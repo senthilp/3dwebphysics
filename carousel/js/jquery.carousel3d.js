@@ -190,7 +190,8 @@
 					if($.fn.swipe) {
 						// Attach swipe event to the below node
 						$(carouselNode + ' figure').swipe({
-							swipe: swipeHandler
+							swipe: swipeHandler,
+							threshold: 0
 						});											
 					}
 				},

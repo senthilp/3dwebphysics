@@ -13,11 +13,16 @@ resulted in **imageCarousel3D**
 imageCarousel3D is a JQuery based plugin to create a 3D based image/picture carousel. It uses 
 CSS3 3D transforms and basic geometry math to create the experience. The plugin uses 
 inbuilt [mustache](http://mustache.github.com/) templates to build the 3D markup. Please 
-refer to [carousel.php](https://github.com/senthilp/3dwebphysics/blob/master/carousel/carousel.php) 
+refer to [example.html](https://github.com/senthilp/3dwebphysics/blob/master/carousel/example.html) 
 to see a sample overall page markup.
 
 imageCarousel3D depends on the [Modernizr](http://www.modernizr.com) API for feature 
 detection and retrieving vendor prefixes.
+
+If viewed in a **touch** enabled device, it can handle touch events swipe left & 
+swipe right using the JQuery Swipe plugin [touchSwipe](https://github.com/mattbryson/TouchSwipe-Jquery-Plugin)
+For handling more granular events please override the method **handleTouch** 
+and include the appropriate library.
 
 **NOTE:** This plugin is not advised when there are only 2 items/pictures to be rotated, 
 as they fail to deliver the real 3D effects and can also cause adverse behaviors.

@@ -66,11 +66,11 @@
 			$('.container').imageCarousel3D({
 				imageUrls : <?php echo json_encode($imageUrls);?>,
 				dimensions: <?php echo json_encode($dimensions); ?>,
-				opacityVal : 0.9,							
+				opacityVal : 0.9,
+				keyboardEvents: true,							
 				nodeSelectors: {
 					fallback: '.fallback-message',
 					controls: {
-						keyboard: true,
 						container: '.controls',
 						left: '.controls .left',
 						right: '.controls .right',

@@ -65,15 +65,15 @@
 		 *			imageUrls : ["http:\/\/i.img.one.JPG","http:\/\/i.img.two.JPG"], // Mandatory, the list of image URLs to float in 3D. Order is preserved
 		 *			dimensions: {"height":300,"width":400,"offset":40}, // Mandatory, JSON encapsulating the height & width of the image. Optional offset parameter
 		 *																   to specify the distance between images. Default value is 40px
-		 *			opacityVal : 0.9, // Optional, The opacity (amount of transparency) value that should be used on the images. Default value is 0.9							
-		 *			nodeSelectors: { // Optional, A JSON object representing various DOM nodes involved with the 3D carousel
-		 * 				fallback: '.fallback-message', // Optional, The DOM selector for the fallback message container 
-		 *				controls: { // Optional, A JSON object representing the DOM nodes of the carousel navigation controllers 
-		 *					keyboard: true, // Optional, A flag to enable keyboard controls. Default value is true
+		 *			opacityVal : 0.9, // Optional, The opacity (amount of transparency) value that should be used on the images. Default value is 0.9	
+		 *		    keyboardEvents: true, // Optional, A flag to enable keyboard controls. Default value is false	
 		 *									   Left Arrow => Move left
 		 *									   Right Arrow => Move right
 		 *									   Enter => Start spin
-		 *									   esc => Stop spinning
+		 *									   esc => Stop spinning					
+		 *			nodeSelectors: { // Optional, A JSON object representing various DOM nodes involved with the 3D carousel
+		 * 				fallback: '.fallback-message', // Optional, The DOM selector for the fallback message container 
+		 *				controls: { // Optional, A JSON object representing the DOM nodes of the carousel navigation controllers 
 		 *					container: '.controls', // Optional, The selector for the controls container
 		 *					left: '.controls .left', // Optional, The selector for moving the carousel to left  
 		 *					right: '.controls .right', // Optional, The selector for moving the carousel to right
@@ -89,6 +89,7 @@
 				// private local variables 
 				// Retrieving config object and setting to local variables
 			var imageUrls =  config.imageUrls || [],
+				keyboardEvents = config.keyboardEvents,
 				nodeSelectors = config.nodeSelectors,
 				fallback = nodeSelectors && nodeSelectors.fallback,	
 				controls = nodeSelectors && nodeSelectors.controls,
@@ -229,10 +230,8 @@
 					controls && $(controls.container).hide();
 				}, 
 				postRender = function(){
-					var keyboardEvents = true;
 					// Event binding for UI controls
-					if(controls) {
-						keyboardEvents = typeof controls.keyboard != 'undefined'?controls.keyboard: true; 
+					if(controls) { 
 						$(controls.left).click(function() {
 							handleRotate(1);
 						});

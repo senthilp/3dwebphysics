@@ -22,8 +22,8 @@
 			carousel: '<section style="border:2px solid #CCC;border-radius:4px;position:relative;margin:0 auto;{{perspectiveProp}}:1000px;{{sectionStyle}}">'
 				+ '<div id="{{carouselId}}" style="width:100%;height:100%;position:absolute;{{transformStyleProp}}:preserve-3d;{{transitionProp}}:{{transformProp}} 1s ease;{{carouselStyle}}">'
 				+'{{figureTmpl}}</div></section>',		
-			figure: '<figure style="position:absolute;margin:0;{{transitionProp}}:opacity 1s ease;{{style}}"></figure>',		
-			transform: 'translateZ({{translateZ}}px)  rotateY({{rotateY}}deg)'			
+			figure: '<div style="position:absolute;margin:0;{{transitionProp}}:opacity 1s ease;{{style}}"></div>',		
+			transform: 'translate3d(0, 0, {{translateZ}}px)  rotateY({{rotateY}}deg)'			
 		};		
 	
 	// Adding additional methods to Modernizr for handling CSS prefixing and transition events
@@ -319,7 +319,7 @@
 				
 				for(i=0; i < panelCount; i++) {
 					panelStyle.background = 'url(\''+ imageUrls[i] + '\') no-repeat 50% 50%';
-					panelStyle[_m.cssPrefixed('transform')] = 'rotateY(' + (i * rotateY) + 'deg) translateZ(' + translateZ + 'px)';				
+					panelStyle[_m.cssPrefixed('transform')] = 'rotateY(' + (i * rotateY) + 'deg) translate3d(0, 0, ' + translateZ + 'px)';				
 					if(i) {
 						panelStyle.opacity = oVal;
 					}				

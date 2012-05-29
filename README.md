@@ -32,11 +32,11 @@ The JavaScript for building the 3D carousel is pretty simple
 	$('.container').imageCarousel3D({
 		imageUrls : ["http:\/\/i.img.one.JPG","http:\/\/i.img.two.JPG"],
 		dimensions: {"height":300,"width":400,"offset":40},
-		opacityVal : 0.9,							
+		opacityVal : 0.9,
+		keyboardEvents: true,		
 		nodeSelectors: {
 			fallback: '.fallback-message',
 			controls: {
-				keyboard: true,
 				container: '.controls',
 				left: '.controls .left',
 				right: '.controls .right',
@@ -65,6 +65,14 @@ specify the distance between images. Default value is 40px.
 <br/>
 The opacity (amount of transparency) value that should be used on the images. Default 
 value is 0.9
+###keyboardEvents
+**Optional**
+<br/>
+A flag to enable keyboard controls. Default value is true <br/>
+    Left Arrow => Move left <br/>
+    Right Arrow => Move right <br/>
+    Enter => Start spin <br/>
+    esc => Stop spinning
 ###nodeSelectors
 **Optional**
 <br/>
@@ -77,14 +85,6 @@ The DOM selector for the fallback message container.
 **Optional**
 <br/>
 A JSON object representing the DOM nodes of the carousel navigation controllers
-###keyboard
-**Optional**
-<br/>
-A flag to enable keyboard controls. Default value is true <br/>
-    Left Arrow => Move left <br/>
-    Right Arrow => Move right <br/>
-    Enter => Start spin <br/>
-    esc => Stop spinning
 ###container
 **Optional**
 <br/>

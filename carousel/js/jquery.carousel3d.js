@@ -22,7 +22,7 @@
 			carousel: '<section style="border:2px solid #CCC;border-radius:4px;position:relative;margin:0 auto;{{perspectiveProp}}:1000px;{{sectionStyle}}">'
 				+ '<div id="{{carouselId}}" style="width:100%;height:100%;position:absolute;{{transformStyleProp}}:preserve-3d;{{transitionProp}}:{{transformProp}} 1s ease;{{carouselStyle}}">'
 				+'{{figureTmpl}}</div></section>',		
-			figure: '<div style="position:absolute;margin:0;{{transitionProp}}:opacity 1s ease;{{style}}"></div>',		
+			figure: '<div class="figure" style="position:absolute;margin:0;{{transitionProp}}:opacity 1s ease;{{style}}"></div>',		
 			transform: 'translate3d(0, 0, {{translateZ}}px)  rotateY({{rotateY}}deg)'			
 		};		
 	
@@ -169,9 +169,9 @@
 					}
 					currentIndex = currentIndex + direction;
 					resetCheck();
-					$(carouselNode + " figure").css("opacity", oVal);
+					$(carouselNode + " .figure").css("opacity", oVal);
 					$(carouselNode).get(0).style[transformProp] = getTransform(getCurrentAngle() + (direction * rotateY));
-					$($(carouselNode + " figure").get(currentIndex>0?panelCount-currentIndex:Math.abs(currentIndex))).css("opacity", "1");
+					$($(carouselNode + " .figure").get(currentIndex>0?panelCount-currentIndex:Math.abs(currentIndex))).css("opacity", "1");
 				},
 				/**
 			     * Handles touch events => swipe left & swipe right
@@ -190,7 +190,7 @@
 					};
 					if($.fn.swipe) {
 						// Attach swipe event to the below node
-						$(carouselNode + ' figure').swipe({
+						$(carouselNode + ' .figure').swipe({
 							swipe: swipeHandler,
 							threshold: 0
 						});											

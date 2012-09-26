@@ -3,6 +3,8 @@
  *
  * Copyright 2012, Senthil Padmanabhan
  * Released under the MIT License
+ * http://www.opensource.org/licenses/MIT
+ * 
  */
 !function($, window) {	
 	// Mandating ECMAScript 5 strict mode

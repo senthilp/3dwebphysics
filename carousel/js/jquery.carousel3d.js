@@ -1,7 +1,7 @@
 /**
  * 3dwebphysics 
  *
- * Copyright 2012, Senthil Padmanabhan
+ * Copyright 2012, eBay Inc. (Senthil Padmanabhan)
  * Released under the MIT License
  * http://www.opensource.org/licenses/MIT
  * 

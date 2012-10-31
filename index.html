@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="3dwebphysics : A project to incorporate Three Dimensional Physics into the web world  " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>3dwebphysics</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/senthilp/3dwebphysics">View on GitHub</a>
+
+          <h1 id="project_title">3dwebphysics</h1>
+          <h2 id="project_tagline">A project to incorporate Three Dimensional Physics into the web world  </h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/senthilp/3dwebphysics/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/senthilp/3dwebphysics/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>3dwebphysics</h1>
+
+<h2>Three Dimensional Physics into the world of web</h2>
+
+<p>Impressed by the <a href="http://desandro.github.com/3dtransforms/">Intro to CSS 3D transforms</a>
+article by <a href="http://desandro.com/">David DeSandro</a>, this project kicked-off to 
+bring a generic solution for leveraging 3D Physics into web pages seamlessly.</p>
+
+<h2>Carousel</h2>
+
+<p>Carousels are common web components used by many pages as an elegant way to represent
+transitions between multiple items/panels/divs. Implementing this component in 3D 
+resulted in <strong>imageCarousel3D</strong></p>
+
+<p>imageCarousel3D is a JQuery based plugin to create a 3D based image/picture carousel. It uses 
+CSS3 3D transforms and basic geometry math to create the experience. The plugin uses 
+inbuilt <a href="http://mustache.github.com/">mustache</a> templates to build the 3D markup. Please 
+refer to <a href="https://github.com/senthilp/3dwebphysics/blob/master/carousel/example.html">example.html</a> 
+to see a sample overall page markup.</p>
+
+<p>imageCarousel3D depends on the <a href="http://www.modernizr.com">Modernizr</a> API for feature 
+detection and retrieving vendor prefixes.</p>
+
+<p>If viewed in a <strong>touch</strong> enabled device, it can handle touch events swipe left &amp; 
+swipe right using the JQuery Swipe plugin <a href="https://github.com/mattbryson/TouchSwipe-Jquery-Plugin">touchSwipe</a>
+For handling more granular events please override the method <strong>handleTouch</strong> 
+and include the appropriate library.</p>
+
+<p><strong>NOTE:</strong> This plugin is not advised when there are only 2 items/pictures to be rotated, 
+as they fail to deliver the real 3D effects and can also cause adverse behaviors.</p>
+
+<p>The JavaScript for building the 3D carousel is pretty simple</p>
+
+<pre><code>$('.container').imageCarousel3D({
+    imageUrls : ["http:\/\/i.img.one.JPG","http:\/\/i.img.two.JPG"],
+    dimensions: {"height":300,"width":400,"offset":40},
+    opacityVal : 0.9,
+    keyboardEvents: true,       
+    nodeSelectors: {
+        fallback: '.fallback-message',
+        controls: {
+            container: '.controls',
+            left: '.controls .left',
+            right: '.controls .right',
+            spinner: '.controls .spin',
+            cancelSpin: '.controls .cancel'
+        },
+        mask: '.controls .mask'
+    }
+});
+</code></pre>
+
+<p>You can also simply download this repo, and load the example.html in your browser to see this live in action.</p>
+
+<p>The various options associated with the 3D carousel (as seen in the above JS code) 
+are listed below</p>
+
+<h3>imageUrls</h3>
+
+<p><strong>Mandatory</strong>
+<br>
+The list/array of image URLs to float in 3D. Order is preserved.</p>
+
+<h3>dimensions</h3>
+
+<p><strong>Mandatory</strong>
+<br>
+JSON encapsulating the height &amp; width of the image. Optional offset parameter to 
+specify the distance between images. Default value is 40px.</p>
+
+<h3>opacityVal</h3>
+
+<p><strong>Optional</strong>
+<br>
+The opacity (amount of transparency) value that should be used on the images. Default 
+value is 0.9</p>
+
+<h3>keyboardEvents</h3>
+
+<p><strong>Optional</strong>
+<br>
+A flag to enable keyboard controls. Default value is true <br>
+    Left Arrow =&gt; Move left <br>
+    Right Arrow =&gt; Move right <br>
+    Enter =&gt; Start spin <br>
+    esc =&gt; Stop spinning</p>
+
+<h3>nodeSelectors</h3>
+
+<p><strong>Optional</strong>
+<br>
+A JSON object representing various DOM nodes involved with the 3D carousel.</p>
+
+<h3>fallback</h3>
+
+<p><strong>Optional</strong>
+<br>
+The DOM selector for the fallback message container.</p>
+
+<h3>controls</h3>
+
+<p><strong>Optional</strong>
+<br>
+A JSON object representing the DOM nodes of the carousel navigation controllers</p>
+
+<h3>container</h3>
+
+<p><strong>Optional</strong>
+<br>
+The selector for the controls container</p>
+
+<h3>left</h3>
+
+<p><strong>Optional</strong>
+<br>
+The selector for moving the carousel to left</p>
+
+<h3>right</h3>
+
+<p><strong>Optional</strong>
+<br>
+The selector for moving the carousel to right</p>
+
+<h3>spinner</h3>
+
+<p><strong>Optional</strong>
+<br>
+The selector for spining the carousel</p>
+
+<h3>cancelSpin</h3>
+
+<p><strong>Optional</strong>
+<br>
+The selector for cancelling a spin</p>
+
+<h3>mask</h3>
+
+<p><strong>Optional</strong>
+<br>
+The selector for the mask layer if any to hide the controls when spinning</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">3dwebphysics maintained by <a href="https://github.com/senthilp">senthilp</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
